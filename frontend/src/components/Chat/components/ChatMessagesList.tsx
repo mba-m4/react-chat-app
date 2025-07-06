@@ -25,28 +25,52 @@ const messages = [
     content: "What's the best way to eat a?",
     role: "user",
   },
+  {id:6,
+    content: "What's the best way to eat a?",
+    role: "assistant",
+  },
+  {id:7,
+    content: "What's the best way to eat a?",
+    role: "user",
+  },
+  {id:8,
+    content: "What's the best way to eat a?",
+    role: "assistant",
+  },
+  {id:9,
+    content: "What's the best way to eat a?",
+    role: "user",
+  },
+  {id:10,
+    content: "What's the best way to eat a?",
+    role: "assistant",
+  },
   
 ]
 
 
 export default function ChatMessagesList() {
   return (
-    <ScrollArea>
-    <div className="flex flex-col gap-2 p-4">
+    <ScrollArea className="grow min-h-0">
+      <div className="flex flex-col gap-2 p-4">
         {messages.map((message) => (
-        <div
+          <div
             key={message.id}
-            className={`rounded-md max-w-[30%] px-3 py-2 ${
-            message.role === "user"
+            className={`
+              rounded-md
+              max-w-[clamp(70%,60ch,90%)]
+              px-[clamp(0.5rem,1vw,1rem)] py-[clamp(0.25rem,0.75vw,0.5rem)]
+              ${message.role === "user"
                 ? "self-end bg-primary text-white"
-                : "self-start bg-secondary"
-            }`}
-        >
-            <p>{message.content}</p>
-        </div>
+                : "self-start bg-secondary"}
+            `}
+          >
+            <p className="text-[clamp(1rem,1.5vw,1.3rem)]">{message.content}</p>
+          </div>
         ))}
-    </div>
+      </div>
     </ScrollArea>
+
   )
 }
 

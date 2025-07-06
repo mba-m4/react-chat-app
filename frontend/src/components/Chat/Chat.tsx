@@ -9,9 +9,11 @@ function Chat() {
 
   return (
     <>
+    <div className='flex flex-col h-[100vh]'>
     <ChatHeader />
     <ChatMessagesList />
     <ChatMessageInput onSend={handleSend}/>
+    </div>
     </>
   )
 }
