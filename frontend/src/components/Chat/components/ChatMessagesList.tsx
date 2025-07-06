@@ -29,7 +29,7 @@ const messages = [
 ]
 
 
-function ChatMessagesList() {
+export default function ChatMessagesList() {
   return (
     <ScrollArea>
     <div className="flex flex-col gap-2 p-4">
@@ -50,4 +50,3 @@ function ChatMessagesList() {
   )
 }
 
-export default ChatMessagesList
