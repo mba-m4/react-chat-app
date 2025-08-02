@@ -44,9 +44,9 @@ function App() {
       </div>
 
       {/* メインコンテンツ */}
-      <div className="flex-1">
+      <div className="flex-1 h-0">
         {currentPage === 'chat' ? (
-          <ResizablePanelGroup direction="horizontal">
+          <ResizablePanelGroup direction="horizontal" className="h-full">
             <ResizablePanel defaultSize={30}>
               <Talk />
             </ResizablePanel>

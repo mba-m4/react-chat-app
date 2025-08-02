@@ -40,7 +40,7 @@ function Chat() {
   // トークが選択されていない場合の表示
   if (!selectedTalkId || !selectedTalk) {
     return (
-      <div className="flex flex-col h-[100dvh] min-h-[300px] min-w-[150px] bg-gray-50">
+      <div className="flex flex-col h-full bg-gray-50">
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center text-gray-500">
             <h2 className="text-xl font-semibold mb-2">トークを選択してください</h2>
@@ -52,9 +52,11 @@ function Chat() {
   }
 
   return (
-    <div className='flex flex-col h-[100dvh] min-h-[300px] min-w-[150px]'>
+    <div className='flex flex-col h-full'>
       <ChatHeader talkName={selectedTalk.name} />
-      <ChatMessagesList messages={messages}/>
+      <div className="flex-1 min-h-0">
+        <ChatMessagesList messages={messages}/>
+      </div>
       <ChatMessageInput onSend={handleSend}/>
     </div>
   )

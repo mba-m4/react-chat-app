@@ -18,7 +18,6 @@ export default function ChatMessageInput({ onSend }: Props) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log('KeyDown:', e.key, 'state isComposing:', isComposing);
     // 日本語入力中の変換確定エンターは送信しない
     if (e.key === "Enter" && !isComposing) {
       e.preventDefault();
@@ -27,7 +26,6 @@ export default function ChatMessageInput({ onSend }: Props) {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log('KeyPress:', e.key, 'state isComposing:', isComposing);
     // KeyPressでもチェック
     if (e.key === "Enter" && !isComposing) {
       e.preventDefault();
@@ -36,17 +34,15 @@ export default function ChatMessageInput({ onSend }: Props) {
   };
 
   const handleCompositionStart = () => {
-    console.log('CompositionStart');
     setIsComposing(true);
   };
 
   const handleCompositionEnd = () => {
-    console.log('CompositionEnd');
     setIsComposing(false);
   };
 
   return (
-    <div className="flex-none flex flex-col xs:flex-row gap-[clamp(0.25rem,1vw,0.5rem)] p-[clamp(0.5rem,2vw,1rem)]">
+    <div className="flex-shrink-0 flex flex-col xs:flex-row gap-[clamp(0.25rem,1vw,0.5rem)] p-[clamp(0.5rem,2vw,1rem)] bg-white border-t border-gray-200">
       <Input
         placeholder="メッセージを入力..."
         value={text}

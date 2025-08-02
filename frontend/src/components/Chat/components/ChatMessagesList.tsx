@@ -1,6 +1,6 @@
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import type { Message } from "@/types/Message"
+import { ScrollArea } from "../../ui/scroll-area"
+import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar"
+import type { Message } from "../../../types/Message"
 
 
 type Props = {
@@ -9,16 +9,15 @@ type Props = {
 
 export default function ChatMessagesList({messages}: Props) {
   return (
-    <ScrollArea className="grow min-h-0">
+    <ScrollArea className="h-full">
       <div className="flex flex-col gap-2 p-4">
         {messages.map((message) => (
-          <div className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
+          <div key={message.id} className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse" : ""}`}>
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div
-              key={message.id}
               className={`
                 rounded-md
                 max-w-[clamp(50%,60ch,90%)]
@@ -32,10 +31,8 @@ export default function ChatMessagesList({messages}: Props) {
             </div>
           </div>
         ))}
-
       </div>
     </ScrollArea>
-
   )
 }
 
