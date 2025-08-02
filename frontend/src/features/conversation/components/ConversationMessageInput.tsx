@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   onSend: (text: string) => void;
 };
 
-export default function ChatMessageInput({ onSend }: Props) {
+export default function ConversationMessageInput({ onSend }: Props) {
   const [text, setText] = useState("");
   const [isComposing, setIsComposing] = useState(false);
 
@@ -58,4 +58,4 @@ export default function ChatMessageInput({ onSend }: Props) {
       </Button>
     </div>
   );
-}
+} 

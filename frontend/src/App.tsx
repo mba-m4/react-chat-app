@@ -1,64 +1,70 @@
 import { useState } from "react";
-import Chat from "./components/Chat/Chat";
-import Talk from "./components/Talk/Talk";
-import User from "./components/User/User";
-import { Button } from "./components/ui/button";
-import { Home, MessageCircle, User as UserIcon } from "lucide-react";
+import ConversationList from "@/pages/ConversationList";
+import ConversationView from "@/pages/ConversationView";
+import ProfilePage from "@/pages/ProfilePage";
+import { Button } from "@/components/ui/button";
+import { Home, User as UserIcon } from "lucide-react";
+import { APP_CONFIG, PAGE_TYPE } from "@/constants";
+import type { PageType } from "@/constants";
 
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "./components/ui/resizable";
-
-type Page = 'chat' | 'user';
+} from "@/components/ui/resizable";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('chat');
+  const [currentPage, setCurrentPage] = useState<PageType>(PAGE_TYPE.CONVERSATION);
+
+  const handlePageChange = (page: PageType) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="h-screen flex flex-col">
       {/* ナビゲーションバー */}
-      <div className="bg-blue-500 text-white p-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold">React Chat App</h1>
-        <div className="flex gap-2">
+      <header className="bg-blue-500 text-white p-4 flex items-center justify-between">
+        <h1 className="text-xl font-bold">{APP_CONFIG.name}</h1>
+        <nav className="flex gap-2">
           <Button
-            variant={currentPage === 'chat' ? 'default' : 'ghost'}
+            variant={currentPage === PAGE_TYPE.CONVERSATION ? 'default' : 'ghost'}
             size="sm"
-            onClick={() => setCurrentPage('chat')}
+            onClick={() => handlePageChange(PAGE_TYPE.CONVERSATION)}
             className="text-white hover:bg-blue-600"
+            aria-label="会話ページに移動"
           >
             <Home className="w-4 h-4 mr-1" />
-            チャット
+            会話
           </Button>
           <Button
-            variant={currentPage === 'user' ? 'default' : 'ghost'}
+            variant={currentPage === PAGE_TYPE.PROFILE ? 'default' : 'ghost'}
             size="sm"
-            onClick={() => setCurrentPage('user')}
+            onClick={() => handlePageChange(PAGE_TYPE.PROFILE)}
             className="text-white hover:bg-blue-600"
+            aria-label="プロフィールページに移動"
           >
             <UserIcon className="w-4 h-4 mr-1" />
             プロフィール
           </Button>
-        </div>
-      </div>
+        </nav>
+      </header>
 
       {/* メインコンテンツ */}
-      <div className="flex-1 h-0">
-        {currentPage === 'chat' ? (
+      <main className="flex-1 h-0">
+        {currentPage === PAGE_TYPE.CONVERSATION ? (
           <ResizablePanelGroup direction="horizontal" className="h-full">
-            <ResizablePanel defaultSize={30}>
-              <Talk />
+            <ResizablePanel defaultSize={APP_CONFIG.defaultPanelSizes.conversationList}>
+              <ConversationList />
             </ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel defaultSize={70}>
-              <Chat />
+            <ResizablePanel defaultSize={APP_CONFIG.defaultPanelSizes.conversationView}>
+              <ConversationView />
             </ResizablePanel>
           </ResizablePanelGroup>
         ) : (
-          <User />
+          <ProfilePage />
         )}
-      </div>
+      </main>
     </div>
   );
 }
