@@ -31,10 +31,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
   
   selectTalk: (talkId) => {
     set({ selectedTalkId: talkId });
-    // 選択時に未読を0にする
+    // 選択時に未読をundefinedにする
     const { talks } = get();
     const updatedTalks = talks.map(talk => 
-      talk.id === talkId ? { ...talk, unreadCount: 0 } : talk
+      talk.id === talkId ? { ...talk, unreadCount: undefined } : talk
     );
     set({ talks: updatedTalks });
   },
@@ -51,7 +51,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
           ...talk,
           lastMessage: message.content,
           lastMessageTime: new Date(),
-          unreadCount: get().selectedTalkId === talkId ? 0 : (talk.unreadCount || 0) + 1
+          unreadCount: get().selectedTalkId === talkId ? undefined : (talk.unreadCount || 0) + 1
         };
       }
       return talk;
@@ -81,7 +81,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
   markAsRead: (talkId) => {
     const { talks } = get();
     const updatedTalks = talks.map(talk => 
-      talk.id === talkId ? { ...talk, unreadCount: 0 } : talk
+      talk.id === talkId ? { ...talk, unreadCount: undefined } : talk
     );
     set({ talks: updatedTalks });
   },

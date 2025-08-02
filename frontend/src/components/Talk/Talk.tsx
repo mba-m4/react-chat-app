@@ -22,7 +22,7 @@ export default function Talk() {
         name: "佐藤花子",
         lastMessage: "明日の会議の資料を送ってください",
         lastMessageTime: new Date("2024-01-15T13:45:00"),
-        unreadCount: 0
+        unreadCount: undefined
       },
       {
         id: 3,
@@ -36,7 +36,7 @@ export default function Talk() {
         name: "鈴木一郎",
         lastMessage: "ありがとうございました！",
         lastMessageTime: new Date("2024-01-15T11:15:00"),
-        unreadCount: 0
+        unreadCount: undefined
       },
       {
         id: 5,
@@ -117,7 +117,7 @@ export default function Talk() {
                     {getInitials(talk.name)}
                   </AvatarFallback>
                 </Avatar>
-                {talk.unreadCount && talk.unreadCount > 0 && (
+                {talk.unreadCount !== undefined && talk.unreadCount !== null && talk.unreadCount > 0 && (
                   <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {talk.unreadCount > 99 ? "99+" : talk.unreadCount}
                   </div>
