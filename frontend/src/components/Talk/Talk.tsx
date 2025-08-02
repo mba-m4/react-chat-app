@@ -91,12 +91,7 @@ export default function Talk() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white h-screen">
-      {/* ヘッダー */}
-      <div className="bg-blue-500 text-white p-4">
-        <h1 className="text-xl font-bold">トーク</h1>
-      </div>
-
+    <div className="h-full bg-white">
       {/* トーク一覧 */}
       <div className="overflow-y-auto h-full">
         {talks.map((talk) => (
