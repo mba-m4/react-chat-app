@@ -9,7 +9,28 @@ import { MESSAGE_ROLE } from "@/constants";
 import type { MessageRole } from "@/constants";
 import { MessageCircle } from "lucide-react";
 
+/**
+ * チャット画面コンポーネント
+ * 
+ * このコンポーネントは以下の機能を提供します：
+ * - 選択されたチャットの表示
+ * - メッセージの送信機能
+ * - AIの応答シミュレーション
+ * - エラー処理とクリーンアップ
+ * 
+ * レイアウト：
+ * - ヘッダー：チャット名とアイコン
+ * - メッセージ一覧：過去のメッセージを表示
+ * - メッセージ入力：新しいメッセージの送信
+ * 
+ * 状態管理：
+ * - selectedTalkId: 選択されたチャットID
+ * - selectedTalk: 選択されたチャットの詳細情報
+ * - messages: チャットのメッセージ一覧
+ */
+
 export default function ConversationView() {
+  // チャットストアから必要な状態とアクションを取得
   const { 
     selectedTalkId, 
     getSelectedTalk, 
@@ -19,12 +40,18 @@ export default function ConversationView() {
     clearError
   } = useChatStore();
 
+  // 現在選択されているチャットとメッセージを取得
   const selectedTalk = getSelectedTalk();
   const messages = getSelectedTalkMessages();
 
+  /**
+   * メッセージ送信ハンドラー
+   * @param text 送信するメッセージの内容
+   */
   const handleSend = (text: string) => {
     if (!selectedTalkId) return;
 
+    // ユーザーメッセージを作成
     const newMessage = {
       content: text,
       role: MESSAGE_ROLE.USER as MessageRole,
@@ -33,6 +60,7 @@ export default function ConversationView() {
       isRead: false
     };
 
+    // メッセージをチャットストアに追加
     addMessage(selectedTalkId, newMessage);
 
     // AIの応答をシミュレート（実際の実装ではAPI呼び出し）

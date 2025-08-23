@@ -5,10 +5,36 @@ import { useChatStore } from "@/store/chatStore";
 import { formatTime, truncateMessage, getInitials, formatUnreadCount } from "@/utils";
 import type { Talk as TalkType } from "@/types";
 
+/**
+ * チャット一覧コンポーネント
+ * 
+ * このコンポーネントは以下の機能を提供します：
+ * - チャット一覧の表示
+ * - チャットの選択機能
+ * - 初期データ（ダミーデータ）の設定
+ * - 初期メッセージの設定
+ * 
+ * 表示内容：
+ * - チャット名
+ * - 最新メッセージの一部
+ * - 最新メッセージの時間
+ * - 未読メッセージ数
+ * - アバター画像
+ * 
+ * 状態管理：
+ * - talks: チャット一覧データ
+ * - selectedTalkId: 現在選択中のチャットID
+ */
+
 export default function ConversationList() {
+  // チャットストアから必要な状態とアクションを取得
   const { talks, selectedTalkId, setTalks, selectTalk, setInitialMessages } = useChatStore();
 
-  // 初期データの設定
+  /**
+   * コンポーネントマウント時の初期化処理
+   * - ダミーのチャットデータを設定
+   * - 各チャットに初期メッセージを設定
+   */
   useEffect(() => {
     const dummyTalks: TalkType[] = [
       {
