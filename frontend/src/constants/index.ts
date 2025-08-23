@@ -5,8 +5,9 @@ export const APP_CONFIG = {
   maxMessageLength: 1000,
   maxUnreadCount: 99,
   defaultPanelSizes: {
-    conversationList: 30,
-    conversationView: 70
+    conversationList: 25,
+    conversationView: 50,
+    conversationProfile: 25,
   }
 } as const;
 

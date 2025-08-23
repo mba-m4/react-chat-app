@@ -1,5 +1,5 @@
 
-export default function Profile() {
+export default function ProfConversationProfile() {
   return (
     <>
         <div className="h-[20dvh] bg-amber-400">

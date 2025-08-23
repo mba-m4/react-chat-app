@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ConversationList from "@/pages/ConversationList";
 import ConversationView from "@/pages/ConversationView";
+import ConversationProfile from "@/pages/ConversationProfile";
+
 import ProfilePage from "@/pages/ProfilePage";
 import { Button } from "@/components/ui/button";
 import { Home, User as UserIcon } from "lucide-react";
@@ -59,6 +61,10 @@ function App() {
             <ResizableHandle />
             <ResizablePanel defaultSize={APP_CONFIG.defaultPanelSizes.conversationView}>
               <ConversationView />
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel defaultSize={APP_CONFIG.defaultPanelSizes.conversationProfile}>
+              <ConversationProfile />
             </ResizablePanel>
           </ResizablePanelGroup>
         ) : (
