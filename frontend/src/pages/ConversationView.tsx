@@ -7,6 +7,7 @@ import {
 import { useChatStore } from "@/store/chatStore";
 import { MESSAGE_ROLE } from "@/constants";
 import type { MessageRole } from "@/constants";
+import { MessageCircle } from "lucide-react";
 
 export default function ConversationView() {
   const { 
@@ -60,9 +61,12 @@ export default function ConversationView() {
   // 会話が選択されていない場合の表示
   if (!selectedTalkId || !selectedTalk) {
     return (
-      <div className="flex flex-col h-full bg-gray-50">
+      <div className="flex flex-col h-full bg-gradient-to-br from-slate-50 to-slate-100">
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center text-gray-500">
+            <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MessageCircle className="w-10 h-10 text-amber-500" />
+            </div>
             <h2 className="text-xl font-semibold mb-2">会話を選択してください</h2>
             <p className="text-sm">左側の会話一覧からチャットを開始したい会話を選択してください</p>
           </div>

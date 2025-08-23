@@ -15,6 +15,9 @@ interface ChatState {
   error: string | null;
 
   // アクション
+  // 初期メッセージ関連
+  setInitialMessages: (talkId: number, initialMessages: Omit<Message, 'id' | 'createdAt' | 'updatedAt'>[]) => void;
+  
   // トーク関連
   setTalks: (talks: Talk[]) => void;
   selectTalk: (talkId: number) => void;
@@ -55,6 +58,46 @@ export const useChatStore = create<ChatState>()(
       currentUser: null,
       isLoading: false,
       error: null,
+
+      // 初期メッセージの設定
+      setInitialMessages: (talkId: number, initialMessages: Omit<Message, 'id' | 'createdAt' | 'updatedAt'>[]) => {
+        const { messages, talks } = get();
+        const formattedMessages = initialMessages.map(msg => ({
+          ...msg,
+          id: Date.now() + Math.random(),
+          createdAt: new Date(Date.now() - Math.random() * 86400000), // 過去24時間内
+          updatedAt: new Date()
+        }));
+        
+        // 最新メッセージを取得（作成日時が最も新しいもの）
+        const latestMessage = formattedMessages.reduce((latest, current) => 
+          current.createdAt > latest.createdAt ? current : latest
+        );
+        
+        // メッセージを設定
+        const updatedMessages = { 
+          ...messages, 
+          [talkId]: formattedMessages 
+        };
+        
+        // トークの最新メッセージ情報を更新
+        const updatedTalks = talks.map(talk => {
+          if (talk.id === talkId) {
+            return {
+              ...talk,
+              lastMessage: latestMessage.content,
+              lastMessageTime: latestMessage.createdAt,
+              updatedAt: new Date()
+            };
+          }
+          return talk;
+        });
+        
+        set({ 
+          messages: updatedMessages,
+          talks: updatedTalks
+        });
+      },
 
       // トーク関連アクション
       setTalks: (talks) => {

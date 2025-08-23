@@ -34,6 +34,24 @@ export interface Talk extends BaseEntity {
   unreadCount?: number;
   participants: User[];
   isGroup: boolean;
+  // プロフィール情報を追加
+  profile?: {
+    name: string;
+    username: string;
+    bio: string;
+    avatar?: string;
+    location?: string;
+    joinedDate?: string;
+    website?: string;
+    followers: number;
+    following: number;
+    isOnline: boolean;
+    isVerified: boolean;
+    skills: string[];
+    interests: string[];
+    contactEmail?: string;
+    contactPhone?: string;
+  };
 }
 
 // メッセージ関連

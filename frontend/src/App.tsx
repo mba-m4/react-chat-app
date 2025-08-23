@@ -25,27 +25,40 @@ function App() {
   return (
     <div className="h-screen flex flex-col">
       {/* ナビゲーションバー */}
-      <header className="bg-blue-500 text-white p-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold">{APP_CONFIG.name}</h1>
+      <header className="bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 text-white p-4 flex items-center justify-between shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+            <Home className="w-5 h-5" />
+          </div>
+          <h1 className="text-xl font-bold">{APP_CONFIG.name}</h1>
+        </div>
         <nav className="flex gap-2">
           <Button
             variant={currentPage === PAGE_TYPE.CONVERSATION ? 'default' : 'ghost'}
             size="sm"
             onClick={() => handlePageChange(PAGE_TYPE.CONVERSATION)}
-            className="text-white hover:bg-blue-600"
+            className={`${
+              currentPage === PAGE_TYPE.CONVERSATION 
+                ? 'bg-white text-amber-600 hover:bg-white/90' 
+                : 'text-white hover:bg-white/20'
+            }`}
             aria-label="会話ページに移動"
           >
-            <Home className="w-4 h-4 mr-1" />
+            <Home className="w-4 h-4 mr-2" />
             会話
           </Button>
           <Button
             variant={currentPage === PAGE_TYPE.PROFILE ? 'default' : 'ghost'}
             size="sm"
             onClick={() => handlePageChange(PAGE_TYPE.PROFILE)}
-            className="text-white hover:bg-blue-600"
+            className={`${
+              currentPage === PAGE_TYPE.PROFILE 
+                ? 'bg-white text-amber-600 hover:bg-white/90' 
+                : 'text-white hover:bg-white/20'
+            }`}
             aria-label="プロフィールページに移動"
           >
-            <UserIcon className="w-4 h-4 mr-1" />
+            <UserIcon className="w-4 h-4 mr-2" />
             プロフィール
           </Button>
         </nav>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Send } from "lucide-react";
 
 type Props = {
   onSend: (text: string) => void;
@@ -42,7 +43,7 @@ export default function ConversationMessageInput({ onSend }: Props) {
   };
 
   return (
-    <div className="flex-shrink-0 flex flex-col xs:flex-row gap-[clamp(0.25rem,1vw,0.5rem)] p-[clamp(0.5rem,2vw,1rem)] bg-white border-t border-gray-200">
+    <div className="flex-shrink-0 flex gap-3 p-4 bg-white border-t border-gray-200 shadow-sm">
       <Input
         placeholder="メッセージを入力..."
         value={text}
@@ -51,9 +52,13 @@ export default function ConversationMessageInput({ onSend }: Props) {
         onKeyPress={handleKeyPress}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
-        className="text-[clamp(0.75rem,1.5vw,1rem)] sm:flex-grow h-[clamp(2rem,4vw,2.25rem)]"
+        className="flex-1 border-gray-200 focus:border-amber-500 focus:ring-amber-500"
       />
-      <Button onClick={handleSubmit} className="h-[clamp(2rem,4vw,2.25rem)] px-[clamp(0.5rem,2vw,1rem)] py-[clamp(0.25rem,1vw,0.5rem)] sm:flex-none text-[clamp(0.75rem,1.5vw,1rem)]">
+      <Button 
+        onClick={handleSubmit} 
+        className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-6"
+      >
+        <Send className="w-4 h-4 mr-2" />
         送信
       </Button>
     </div>

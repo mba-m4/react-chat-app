@@ -11,8 +11,12 @@ export default function ConversationMessagesList({ messages }: ConversationMessa
   if (messages.length === 0) {
     return (
       <ScrollArea className="h-full">
-        <div className="flex items-center justify-center h-full text-gray-500">
-          <p className="text-sm">メッセージがありません</p>
+        <div className="flex flex-col items-center justify-center h-full text-gray-500">
+          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-4">
+            <MessageCircle className="w-8 h-8 text-amber-500" />
+          </div>
+          <p className="text-lg font-medium mb-2">メッセージがありません</p>
+          <p className="text-sm text-gray-400">新しい会話を始めてみましょう</p>
         </div>
       </ScrollArea>
     );
@@ -20,32 +24,36 @@ export default function ConversationMessagesList({ messages }: ConversationMessa
 
   return (
     <ScrollArea className="h-full">
-      <div className="flex flex-col gap-2 p-4">
-        {messages.map((message) => (
-          <div key={message.id} className={`flex gap-2 ${isUserMessage(message.role) ? "flex-row-reverse" : ""}`}>
-            <Avatar className="h-8 w-8">
+      <div className="flex flex-col gap-4 p-6">
+        {messages
+          .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+          .map((message) => (
+          <div key={message.id} className={`flex gap-3 ${isUserMessage(message.role) ? "flex-row-reverse" : ""}`}>
+            <Avatar className="h-10 w-10">
               <AvatarImage 
                 src={isUserMessage(message.role) ? "https://github.com/shadcn.png" : undefined} 
                 alt={isUserMessage(message.role) ? "ユーザーアバター" : "AIアバター"}
               />
-              <AvatarFallback className={isUserMessage(message.role) ? "bg-blue-100 text-blue-600" : "bg-gray-100 text-gray-600"}>
+              <AvatarFallback className={isUserMessage(message.role) ? "bg-gradient-to-br from-amber-400 to-orange-500 text-white font-semibold" : "bg-gradient-to-br from-slate-400 to-gray-500 text-white font-semibold"}>
                 {isUserMessage(message.role) ? "U" : "AI"}
               </AvatarFallback>
             </Avatar>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               <div
                 className={`
-                  rounded-md
-                  max-w-[clamp(50%,60ch,90%)]
-                  px-[clamp(0.5rem,1vw,1rem)] py-[clamp(0.25rem,0.75vw,0.5rem)]
+                  rounded-2xl px-4 py-3 shadow-sm
                   ${isUserMessage(message.role)
-                    ? "self-end bg-primary text-white"
-                    : "self-start bg-secondary"}
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white ml-auto"
+                    : "bg-white border border-gray-200 text-gray-900"}
+                  ${isUserMessage(message.role)
+                    ? 'max-w-[clamp(50%,60ch,85%)]'  // ユーザーメッセージ（右寄せ）
+                    : 'max-w-[clamp(40%,55ch,80%)]'   // AIメッセージ（左寄せ）
+                  }
                 `}
               >
-                <p className="text-[clamp(0.75rem,3vw,1.0rem)] break-words">{message.content}</p>
+                <p className="text-sm break-words leading-relaxed whitespace-normal">{message.content}</p>
               </div>
-              <p className={`text-xs text-gray-500 ${isUserMessage(message.role) ? "text-right" : "text-left"}`}>
+              <p className={`text-xs text-gray-400 ${isUserMessage(message.role) ? "text-right mr-1" : "text-left ml-1"}`}>
                 {message.createdAt.toLocaleTimeString('ja-JP', { 
                   hour: '2-digit', 
                   minute: '2-digit' 
